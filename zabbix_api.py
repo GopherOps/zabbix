@@ -13,36 +13,13 @@ class zabbix_api(object):
         self.password=password
 
     def get_token(self):
-        text={
-            "jsonrpc": "2.0",
-            "method": "user.login",
-            "params": {
-                "user": self.user,
-                "password": self.password
-            },
-            "id": 1
-        }
+        text={"jsonrpc": "2.0","method": "user.login","params": {"user": self.user,"password": self.password},"id": 1}
         data=requests.post(self.url,data=json.dumps(text),headers=headers).json()
         return data['result']
 
     def get_host(self):
         token=self.get_token()
-        text={
-            "jsonrpc": "2.0",
-            "method": "host.get",
-            "params": {
-                "output": [
-                    "hostid",
-                    "host"
-                ],
-                "selectInterfaces": [
-                    "interfaceid",
-                    "ip"
-                ]
-            },
-            "id": 2,
-            "auth": token
-        }
+        text={"jsonrpc": "2.0","method": "host.get","params": {"output": ["hostid","host"],"selectInterfaces": ["interfaceid","ip"]},"id": 2,"auth": token}
         data=requests.post(url=self.url,data=json.dumps(text),headers=headers).json()
         return data
 

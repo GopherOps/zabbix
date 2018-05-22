@@ -1,0 +1,10 @@
+pipline {
+    agent tanyp
+    stages {
+        stage('Build'){
+           steps {
+              echo "Test1"
+           }
+        }
+    }
+}
